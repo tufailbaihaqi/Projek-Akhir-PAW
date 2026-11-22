@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ServiceController; // <-- 1. TAMBAHKAN BARIS INI
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -21,4 +22,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('dashboard');
     Route::patch('/bookings/{booking}/status', [AdminDashboardController::class, 'updateBookingStatus'])->name('bookings.status');
+    Route::get('/services', [ServiceController::class, 'index'])->name('services'); // <-- 2. TAMBAHKAN BARIS INI
 });

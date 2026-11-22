@@ -41,10 +41,10 @@
                    class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition">
                     <span>Reservations</span>
                 </a>
-                <span class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 cursor-not-allowed">
+                <a href="{{ route('admin.services') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('admin.services') ? 'bg-[#133B2C] text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100' }}">
                     <span>Services</span>
-                    <span class="text-[10px] bg-slate-100 px-2 py-0.5 rounded">Next</span>
-                </span>
+                </a>
             </nav>
         </div>
 
