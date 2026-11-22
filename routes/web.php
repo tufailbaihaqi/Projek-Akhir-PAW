@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Fitur 1: Login & Registrasi
+// Fitur 1: Login & Registrasi (Gambar 2.1 & 2.2)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -16,7 +17,8 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Sementara: tujuan redirect setelah login. Diganti dashboard admin besok.
-Route::get('/beranda', function () {
-    return 'Login berhasil. Dashboard admin menyusul.';
-})->middleware('auth')->name('admin.dashboard');
+// Fitur 4: Panel Admin - Dashboard & Manajemen Booking (Gambar 2.3)
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::patch('/bookings/{booking}/status', [AdminDashboardController::class, 'updateBookingStatus'])->name('bookings.status');
+});
